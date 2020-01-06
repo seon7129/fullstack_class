@@ -1,0 +1,24 @@
+{
+  "name": "fullstack_class",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seon7129/fullstack_class.git"
+  },
+  "author": "YUSEON_JEONG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seon7129/fullstack_class/issues"
+  },
+  "homepage": "https://github.com/seon7129/fullstack_class#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
