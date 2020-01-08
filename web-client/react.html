@@ -6,6 +6,7 @@
         <script crossorigin="anonymous" src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
         <script crossorigin="anonymous" src="https://unpkg.com/@material-ui/core@latest/umd/material-ui.production.min.js"></script>
         <script crossorigin="anonymous" src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script crossorigin="anonymous" src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
     <body>
         <div id="root">
@@ -13,18 +14,29 @@
         </div>
         <script type="text/babel">
             const {
-                Button,
-                CircularProgress,
-                TextField,
-                Checkbox,
+                Button
             } = MaterialUI;
 
-            let onLoginClick = function (){
-                console.log('signed-in');
-            };
+            let reqSum = async (param1, param2) => {
+                console.log(`param1: ${param1}, param2: ${param2}`);
+                let axiosConfig = {
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8', 'Access-Control-Allow-Origin': '*'
+                    }
+                }
+                let params = {
+                    param1: param1,
+                    param2: param2
+                }
+                let res = await axios.post("/sum", params, axiosConfig);//async&await make synchronization
+                if(res){
+                    console.log(res.data.sum);
+                }
+            }
 
-            let handleChange = function (){
-                console.log('Checked!');
+            let onLoginClick = () => {
+                //console.log('signed-in');
+                reqSum(Math.random(),Math.random());
             };
 
             let App = (props) => {
@@ -34,14 +46,6 @@
                             onClick={onLoginClick}>
                             Google Login
                         </Button>
-                        <Checkbox
-                            onChange={handleChange}
-                            value="primary"
-                            inputProps={{ 'aria-label': 'primary checkbox' }} />
-                        <br/>
-                        <TextField id="standard-basic"      label="Something here!" />
-                        <br/>
-                        <CircularProgress/>
                     </div>
                 );
             };
