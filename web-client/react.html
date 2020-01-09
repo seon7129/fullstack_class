@@ -7,49 +7,75 @@
         <script crossorigin="anonymous" src="https://unpkg.com/@material-ui/core@latest/umd/material-ui.production.min.js"></script>
         <script crossorigin="anonymous" src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
         <script crossorigin="anonymous" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <meta name="google-signin-client_id" content="999160135990-l5u31mdgl5om4evkpshcoialrvadp2hb.apps.googleusercontent.com">
     </head>
     <body>
         <div id="root">
-
-        </div>
-        <script type="text/babel">
-            const {
-                Button
-            } = MaterialUI;
-
-            let reqSum = async (param1, param2) => {
-                console.log(`param1: ${param1}, param2: ${param2}`);
-                let axiosConfig = {
-                    headers: {
-                        'Content-Type': 'application/json;charset=UTF-8', 'Access-Control-Allow-Origin': '*'
-                    }
-                }
-                let params = {
-                    param1: param1,
-                    param2: param2
-                }
-                let res = await axios.post("/sum", params, axiosConfig);//async&await make synchronization
-                if(res){
-                    console.log(res.data.sum);
-                }
+        <div class="g-signin2" data-onsuccess="onGoogleSignIn"></div>
+        <script>
+            function init() {
+                console.log("init");
+                gapi.load('auth2', () => { //ready
+                    console.log('auth2');
+                    let gauth = gapi.auth2.init({
+                        client_id: "999160135990-l5u31mdgl5om4evkpshcoialrvadp2hb.apps.googleusercontent.com"
+                    });
+                    gauth.then(() => {
+                        console.log('googleAuth success');
+                    }, () => {
+                        console.log('googleAuth Fail');
+                    });
+                });
             }
+        </script>
+        <script>
+            function onSignIn(googleUser){
+                var profile = googleUser.getBasicProfile();
+                console.log('ID: ' + profile.getId());
+                console.log('Name: ' + profile.getName());
+                console.log('Image URL: ' + profile.getImageURL());
+                console.log('Email: ' + profile.getEmail());
+            }
+        </script>
+        <script type="text/babel">
+            // const {
+            //     Button
+            // } = MaterialUI;
 
-            let onLoginClick = () => {
-                //console.log('signed-in');
-                reqSum(Math.random(),Math.random());
-            };
+            // let reqSum = async (param1, param2) => {
+            //     console.log(`param1: ${param1}, param2: ${param2}`);
+            //     let axiosConfig = {
+            //         headers: {
+            //             'Content-Type': 'application/json;charset=UTF-8', 'Access-Control-Allow-Origin': '*'
+            //         }
+            //     }
+            //     let params = {
+            //         param1: param1,
+            //         param2: param2
+            //     }
+            //     let res = await axios.post("/sum", params, axiosConfig);//async&await make synchronization
+            //     if(res){
+            //         console.log(res.data.sum);
+            //     }
+            // }
 
-            let App = (props) => {
-                return(<div>
-                        <Button 
-                            variant="contained"
-                            onClick={onLoginClick}>
-                            Google Login
-                        </Button>
-                    </div>
-                );
-            };
-            ReactDOM.render(<App/>, document.getElementById('root'));
+            // let onLoginClick = () => {
+            //     //console.log('signed-in');
+            //     reqSum(Math.random(),Math.random());
+            // };
+
+            // let App = (props) => {
+            //     return(<div>
+            //             <Button 
+            //                 variant="contained"
+            //                 onClick={onLoginClick}>
+            //                 Google Login
+            //             </Button>
+            //         </div>
+            //     );
+            // };
+            // ReactDOM.render(<App/>, document.getElementById('root'));
             </script>
+            <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
     </body>
 </html>
