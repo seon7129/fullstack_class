@@ -1,3 +1,2 @@
 # fullstack_class
-# a
-ls
+# example 8~9 again(git object loose error)
