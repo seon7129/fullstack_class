@@ -10,7 +10,7 @@
         <meta name="google-signin-client_id" content="999160135990-l5u31mdgl5om4evkpshcoialrvadp2hb.apps.googleusercontent.com">
     </head>
     <body>
-        <div id="root">
+       
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
         <script>
             function init() {
@@ -30,9 +30,10 @@
         let add_user = async (email, cb) => {
             let axiosConfig = {
                 headers: {
-                    'Content-Type': 'application/jason;charset=UTF-8', 'Access-Control-Allow-Origin': '*'
+                    'Content-Type': 'application/json;charset=UTF-8', 'Access-Control-Allow-Origin': '*'
                 }
             }
+            //trdys
             let params = {
                 email: email
             }
@@ -74,6 +75,8 @@
                 alert("Good bye sir!");
             }
         </script>
+        <div id="root">
+        </div>
         <script type="text/babel">
 
             const {
@@ -102,11 +105,11 @@
                         <Card className={useStyle.card}>
                             <CardContent>
                                 <Typography className={useStyle.title} color="textSecondary" gutterBottom>
-                                    User name: {text_user_name}
+                                    User name: {txt_user_name}
                                 </Typography>
                                     Hello, sir. What can I do for you?
                             </CardContent>
-                            <Button variant="contained">
+                            <Button variant="contained"
                                 onClick={onSignOutClick}>
                                 Sign-out
                             </Button>

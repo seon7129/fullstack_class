@@ -10,17 +10,9 @@ app.use(bodyParser.json());
 app.use("/", router);
 
 router.get("/", (req, res) => {
+    console.log(path);
     res.sendFile(`${path}/web-client/react.html`);
 });
-
-// router.post("/sum", (req, res) => {
-//     let sum = req.body.param1 + req.body.param2;
-//     let result = {
-//         sum: sum
-//     }//JASON(Javascript Object Notation)
-//     res.send(result);
-// });
-// test
 
 const mysql = require('mysql');
 let connection = mysql.createConnection({
@@ -54,7 +46,6 @@ let check_user_exists = (email, cb) => {
 };
 
 let add_user = (email, cb) => {
-    console.log(email);
     connection.query(
     `
         INSERT INTO user (email)
@@ -70,10 +61,11 @@ let add_user = (email, cb) => {
     });
 }
 
-// +
+
 router.post('/add_user', (req, res) => {
     let email = '';
     email = req.body.email;
+    console.log(req.body);
     if(email === undefined){
         res.send({
             result: 2
@@ -105,11 +97,11 @@ router.post('/add_user', (req, res) => {
     }
 });
 
+app.listen(_webPort, () => {
+    console.log(`web server running on ${_webPort}`);
+});
+
 process.on('SIGINT', () => {
     connection.end();
     process.exit();
-});
-
-app.listen(_webPort, () => {
-    console.log(`web server running on ${_webPort}`);
 });
